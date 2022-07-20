@@ -1,5 +1,7 @@
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -8,10 +10,10 @@ import java.util.Map;
 
 public class App {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws Exception {
 
         //Fazer conexão http e buscar os top 250 filmes
-        String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java/api/TopMovies.json";
+        String url = "https://mocki.io/v1/9a7c1ca9-29b4-4eb3-8306-1adb9d159060";
         URI endereco = URI.create(url);
         var httpClient = HttpClient.newHttpClient();
         var client = HttpClient.newHttpClient();
@@ -23,5 +25,22 @@ public class App {
         // extrair só os dados que interessam  (título, poster, classificação)
         var parser = new JsonParser();
         List<Map<String, String>> listaDeFilmes = parser.parse(body);
+
+        // exibir e manipular os dados
+        for (Map<String, String> filme : listaDeFilmes) {
+
+            String urlImagem = filme.get("image");
+            String titulo = filme.get("title");
+
+            InputStream inputStream = new URL(urlImagem).openStream();
+            String nomeDoArquivo = titulo + ".png";
+
+            var geradora = new GeradoraDeFigurinhas();
+            geradora.cria(inputStream, nomeDoArquivo);
+
+            System.out.println(titulo);
+            System.out.println();
+
+        }
     }
 }
