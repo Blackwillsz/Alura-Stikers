@@ -22,10 +22,11 @@ public class App {
         String body = response.body();
         System.out.println(body);
 
-        // extrair só os dados que interessam  (título, poster, classificação)
+        //extrair só os dados que interessam  (título, poster, classificação)
         var parser = new JsonParser();
         List<Map<String, String>> listaDeFilmes = parser.parse(body);
 
+<<<<<<< HEAD
         // exibir e manipular os dados
         for (Map<String, String> filme : listaDeFilmes) {
 
@@ -41,6 +42,14 @@ public class App {
             System.out.println(titulo);
             System.out.println();
 
+=======
+        //exibir e manipular os dados
+        for (Map<String, String> filmes : listaDeFilmes){
+            System.out.println(filmes.get("fullTitle"));
+            System.out.println(filmes.get("image"));
+            System.out.println(filmes.get("imDbRating"));
+            System.out.println();
+>>>>>>> e17be9d68c71238dd9f8e79c8549722611b6b77a
         }
     }
 }
