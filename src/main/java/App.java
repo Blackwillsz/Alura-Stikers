@@ -11,7 +11,7 @@ public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         //Fazer conexão http e buscar os top 250 filmes
-        String url = "https://raw.githubusercontent.com/alura-cursos/imersao-java/api/TopMovies.json";
+        String url = "https://mocki.io/v1/9a7c1ca9-29b4-4eb3-8306-1adb9d159060";
         URI endereco = URI.create(url);
         var httpClient = HttpClient.newHttpClient();
         var client = HttpClient.newHttpClient();
@@ -20,8 +20,16 @@ public class App {
         String body = response.body();
         System.out.println(body);
 
-        // extrair só os dados que interessam  (título, poster, classificação)
+        //extrair só os dados que interessam  (título, poster, classificação)
         var parser = new JsonParser();
         List<Map<String, String>> listaDeFilmes = parser.parse(body);
+
+        //exibir e manipular os dados
+        for (Map<String, String> filmes : listaDeFilmes){
+            System.out.println(filmes.get("fullTitle"));
+            System.out.println(filmes.get("image"));
+            System.out.println(filmes.get("imDbRating"));
+            System.out.println();
+        }
     }
 }
